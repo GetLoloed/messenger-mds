@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import './views/dashboard_view.dart';
 
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -46,4 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+Widget build(BuildContext context) {
+  return MaterialApp(
+    title: 'Dashboard',
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+    ),
+    home: DashboardView(),
+  );
 }
