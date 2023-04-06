@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   late String id;
   late String firstName;
   late String lastName;
@@ -6,7 +6,7 @@ class User {
   late String email;
   String? avatar;
 
-  User({
+  UserModel({
     required,
     required this.id,
     required this.firstName,
@@ -17,8 +17,8 @@ class User {
   });
 
   // Utiliser pour convertir un Map (par exemple, depuis une base de données) en objet User
-  factory User.fromMap(Map<String, dynamic> data) {
-    return User(
+  factory UserModel.fromMap(Map<String, dynamic> data) {
+    return UserModel(
       id: data['id'],
       firstName: data['firstName'],
       lastName: data['lastName'],
