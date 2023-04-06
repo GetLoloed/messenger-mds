@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'views/accueil_view.dart';
 import 'views/connexion_view.dart';
-import 'views/inscription_view.dart'; // importez votre vue d'inscription ici
+import 'views/inscription_view.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,9 +22,9 @@ class MyApp extends StatelessWidget {
       title: 'Messagerie',
       initialRoute: '/',
       routes: {
-        '/': (context) => AccueilView(),
+        '/': (context) => const AccueilView(),
         '/connexion': (context) => const ConnexionView(),
-        '/inscription': (context) => const InscriptionView(), // définir la route d'inscription
+        '/inscription': (context) => const InscriptionView(),
       },
     );
   }
