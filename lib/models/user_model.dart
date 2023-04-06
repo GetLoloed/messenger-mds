@@ -16,7 +16,7 @@ class UserModel {
     required this.avatar,
   });
 
-  // Utiliser pour convertir un Map (par exemple, depuis une base de données) en objet User
+// Utiliser pour convertir un Map (par exemple, depuis une base de données) en objet User
   factory UserModel.fromMap(Map<String, dynamic> data) {
     return UserModel(
       id: data['id'],
@@ -28,7 +28,7 @@ class UserModel {
     );
   }
 
-  // Utiliser pour convertir un objet User en Map (par exemple, pour stocker dans une base de données)
+// Utiliser pour convertir un objet User en Map (par exemple, pour stocker dans une base de données)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -38,5 +38,17 @@ class UserModel {
       'email': email,
       'avatar': avatar,
     };
+  }
+
+// Utiliser pour créer un objet User vide
+  factory UserModel.empty() {
+    return UserModel(
+      id: '',
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      avatar: '',
+    );
   }
 }

@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class FirestoreHelper {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
-  final CollectionReference cloudUsers = FirebaseFirestore.instance.collection("UTILISATEURS");
+  final CollectionReference cloudUsers = FirebaseFirestore.instance.collection("User");
   final CollectionReference cloudMessages = FirebaseFirestore.instance.collection("MESSAGES");
 
   Future<UserModel> signUp(String email, String password, String firstName, String lastName, String username, {String? avatar}) async {

@@ -1,28 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:messenger/models/user_model.dart';
 
 class UserController {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<Map<String, dynamic>>> getUsersExceptCurrentUser() async {
-    List<Map<String, dynamic>> usersList = [];
-
-    try {
-      final currentUser = _auth.currentUser;
-      if (currentUser != null) {
-        final querySnapshot = await _firestore.collection('users').get();
-
-        for (var doc in querySnapshot.docs) {
-          if (doc.id != currentUser.uid) {
-            usersList.add(doc.data());
-          }
-        }
-      }
-    } catch (e) {
-      print(e);
+  Future<UserModel> getUserData() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw Exception("L'utilisateur n'est pas connecté");
     }
 
-    return usersList;
+    final documentSnapshot = await _firestore.collection('users').doc(user.uid).get();
+    if (!documentSnapshot.exists) {
+      throw Exception("Les données de l'utilisateur n'ont pas été trouvées");
+    }
+
+    return UserModel.fromMap(documentSnapshot.data()!);
   }
 }
