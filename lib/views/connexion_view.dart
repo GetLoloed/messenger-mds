@@ -72,10 +72,8 @@ class _ConnexionViewState extends State<ConnexionView> {
                     final password = _passwordController.text;
                     final userCredential = await _connexionController.signIn(email, password);
                     if (userCredential != null) {
-                      // Rediriger vers la page d'accueil ou une autre page appropriée
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('OK')),
-                      );
+                      // Rediriger vers la page du tableau de bord
+                      Navigator.pushReplacementNamed(context, '/dashboard');
                     } else {
                       // Afficher un message d'erreur ou une boîte de dialogue
                       ScaffoldMessenger.of(context).showSnackBar(
