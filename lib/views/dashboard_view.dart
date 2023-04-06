@@ -64,7 +64,7 @@ class _DashboardViewState extends State<DashboardView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Messages:'),
+          const Text('Messages:'),
           // Insérez ici le widget qui affiche les messages
         ],
       ),
@@ -96,7 +96,7 @@ class _DashboardViewState extends State<DashboardView> {
             final user = snapshot.data!;
             return _buildScreens(user)[_selectedIndex];
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
