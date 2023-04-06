@@ -2,7 +2,7 @@ import 'user_model.dart';
 
 class Message {
   final String id;
-  final User sender;
+  final UserModel sender;
   final String recipientId;
   final String text;
   final DateTime timestamp;
@@ -19,7 +19,7 @@ class Message {
   factory Message.fromMap(Map<String, dynamic> data) {
     return Message(
       id: data['id'],
-      sender: User.fromMap(data['sender']),
+      sender: UserModel.fromMap(data['sender']),
       recipientId: data['recipientId'],
       text: data['text'],
       timestamp: DateTime.fromMillisecondsSinceEpoch(data['timestamp']),
