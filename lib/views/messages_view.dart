@@ -23,9 +23,10 @@ class MessageView extends StatelessWidget {
           Expanded(
             child: StreamBuilder<List<MessageModel>>(
               stream: messageController.getMessages(
-                  sender: user1Id, receiver: user2Id),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<MessageModel>> snapshot) {
+                sender: user1Id,
+                receiver: user2Id,
+              ),
+              builder: (BuildContext context, AsyncSnapshot<List<MessageModel>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
@@ -37,6 +38,7 @@ class MessageView extends StatelessWidget {
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
+                    reverse: true,
                     itemBuilder: (BuildContext context, int index) {
                       final MessageModel message = snapshot.data![index];
                       final bool isSentByMe = message.sender == user1Id;
@@ -48,9 +50,13 @@ class MessageView extends StatelessWidget {
                         children: [
                           Container(
                             margin: const EdgeInsets.symmetric(
-                                vertical: 4.0, horizontal: 8.0),
+                              vertical: 4.0,
+                              horizontal: 8.0,
+                            ),
                             padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 12.0),
+                              vertical: 8.0,
+                              horizontal: 12.0,
+                            ),
                             decoration: BoxDecoration(
                               color: isSentByMe
                                   ? Colors.blue
