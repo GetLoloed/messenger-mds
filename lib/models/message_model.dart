@@ -1,5 +1,3 @@
-import 'user_model.dart';
-
 class MessageModel {
   final String id;
   final String sender;
@@ -15,7 +13,8 @@ class MessageModel {
     required this.timestamp,
   })  : assert(id.isNotEmpty, 'Le champ "id" ne doit pas être vide'),
         assert(sender.isNotEmpty, 'Le champ "sender" ne doit pas être vide'),
-        assert(receiver.isNotEmpty, 'Le champ "receiver" ne doit pas être vide'),
+        assert(
+            receiver.isNotEmpty, 'Le champ "receiver" ne doit pas être vide'),
         assert(text.isNotEmpty, 'Le champ "text" ne doit pas être vide');
 
   // Utiliser pour convertir un Map (par exemple, depuis une base de données) en objet Message

@@ -32,6 +32,7 @@ class MessageView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  debugPrint('Received 0 messages');
                   return Center(
                     child: Text('Aucun message avec $user2Id'),
                   );
