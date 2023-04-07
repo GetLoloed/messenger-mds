@@ -1,6 +1,6 @@
 # messenger
 
-messenger project
+messenger project by Léo TRAN, Loic AVIEZ, Thomas CALVETE RUFFIER
 
 ## Getting Started
 
