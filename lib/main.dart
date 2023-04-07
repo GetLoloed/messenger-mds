@@ -4,6 +4,7 @@ import 'package:messenger/views/accueil_view.dart';
 import 'package:messenger/views/connexion_view.dart';
 import 'package:messenger/views/inscription_view.dart';
 import 'package:messenger/views/dashboard_view.dart';
+import 'package:messenger/views/messages_view.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,11 +23,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Messagerie',
       initialRoute: '/',
-      routes: {
-        '/': (context) => const AccueilView(),
-        '/connexion': (context) => const ConnexionView(),
-        '/inscription': (context) => const InscriptionView(),
-        '/dashboard': (context) => const DashboardView(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(
+                builder: (context) => const AccueilView());
+          case '/connexion':
+            return MaterialPageRoute(
+                builder: (context) => const ConnexionView());
+          case '/inscription':
+            return MaterialPageRoute(
+                builder: (context) => const InscriptionView());
+          case '/dashboard':
+            return MaterialPageRoute(
+                builder: (context) => const DashboardView());
+          case '/message':
+            final args = settings.arguments as Map<String, String>;
+            return MaterialPageRoute(
+                builder: (context) => MessageView(
+                  user1Id: args['user1Id']!,
+                  user2Id: args['user2Id']!,
+                ));
+          default:
+            throw Exception('Invalid route: ${settings.name}');
+        }
       },
     );
   }
