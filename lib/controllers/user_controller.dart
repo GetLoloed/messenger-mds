@@ -13,7 +13,7 @@ class UserController {
     }
 
     final documentSnapshot =
-        await _firestore.collection('UTILISATEURS').doc(user.uid).get();
+    await _firestore.collection('UTILISATEURS').doc(user.uid).get();
     if (!documentSnapshot.exists) {
       throw Exception("Les données de l'utilisateur n'ont pas été trouvées");
     }

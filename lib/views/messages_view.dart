@@ -3,17 +3,16 @@ import 'package:messenger/controllers/message_controller.dart';
 import 'package:messenger/models/message_model.dart';
 
 class MessageView extends StatelessWidget {
-  const MessageView({Key? key}) : super(key: key);
+  const MessageView({Key? key, required this.user1Id, required this.user2Id})
+      : super(key: key);
+
+  final String user1Id;
+  final String user2Id;
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final user1Id = args['user1Id'];
-    final user2Id = args['user2Id'];
-
-    final TextEditingController _textController = TextEditingController();
-    final MessageController _messageController = MessageController();
+    final TextEditingController textController = TextEditingController();
+    final MessageController messageController = MessageController();
 
     return Scaffold(
       appBar: AppBar(
@@ -23,13 +22,17 @@ class MessageView extends StatelessWidget {
         children: [
           Expanded(
             child: StreamBuilder<List<MessageModel>>(
-              stream: _messageController.getMessages(
-                  receiver: user1Id!, sender: user2Id!),
+              stream: messageController.getMessages(
+                  sender: user1Id, receiver: user2Id),
               builder: (BuildContext context,
                   AsyncSnapshot<List<MessageModel>> snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text('Aucun message avec $user2Id'),
                   );
                 } else {
                   return ListView.builder(
@@ -52,21 +55,10 @@ class MessageView extends StatelessWidget {
                               color: isSentByMe
                                   ? Colors.blue
                                   : Colors.grey.shade200,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(16.0),
-                                topRight: const Radius.circular(16.0),
-                                bottomLeft: isSentByMe
-                                    ? const Radius.circular(16.0)
-                                    : Radius.zero,
-                                bottomRight: isSentByMe
-                                    ? Radius.zero
-                                    : const Radius.circular(16.0),
-                              ),
+                              borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Column(
-                              crossAxisAlignment: isSentByMe
-                                  ? CrossAxisAlignment.end
-                                  : CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   message.text,
@@ -104,7 +96,7 @@ class MessageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _textController,
+                    controller: textController,
                     decoration: const InputDecoration(
                       hintText: 'Entrez votre message',
                       border: OutlineInputBorder(),
@@ -115,13 +107,13 @@ class MessageView extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.send),
                   onPressed: () async {
-                    if (_textController.text.isNotEmpty) {
-                      await _messageController.sendMessage(
+                    if (textController.text.isNotEmpty) {
+                      await messageController.sendMessage(
                         sender: user1Id,
                         receiver: user2Id,
-                        messageText: _textController.text,
+                        messageText: textController.text,
                       );
-                      _textController.clear();
+                      textController.clear();
                     }
                   },
                 ),
