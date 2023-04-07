@@ -4,6 +4,7 @@ import 'package:messenger/views/accueil_view.dart';
 import 'package:messenger/views/connexion_view.dart';
 import 'package:messenger/views/inscription_view.dart';
 import 'package:messenger/views/dashboard_view.dart';
+import 'package:messenger/views/messages_view.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/connexion': (context) => const ConnexionView(),
         '/inscription': (context) => const InscriptionView(),
         '/dashboard': (context) => const DashboardView(),
+        '/message': (context) => const MessageView(),
       },
     );
   }
